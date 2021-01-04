@@ -8,7 +8,7 @@ export const login = (dispatch) => {
 	dispatchEvent({ type: USER_LOGIN_START });
 
 	axios
-		.get("")
+		.get("https://reqres.in/api/users")
 		.then((res) => {
 			dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
 		})
