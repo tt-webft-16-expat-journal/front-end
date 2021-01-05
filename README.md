@@ -1,2 +1,3 @@
 # front-end
-front-end single page react application here.
+
+This application has been bootstrapped with create-react-app; internal README contains usage instructions.
