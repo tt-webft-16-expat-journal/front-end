@@ -40,7 +40,7 @@ const UpdatePosts = ({ post, updatePost }) => {
 	const saveEdits = (e) => {
 		e.preventDefault();
 		axiosWithAuth()
-			.put(`api/posts/:{id}`, editPost)
+			.put(`api/posts/:${id}`, editPost)
 			.then((res) => {
 				updatePost(
 					post.map((item) => (item.id === res.data.id ? res.data : item))
@@ -51,7 +51,7 @@ const UpdatePosts = ({ post, updatePost }) => {
 
 	const deletePost = (post) => {
 		axiosWithAuth()
-			.delete(`api/posts/:{id}`)
+			.delete(`api/posts/:${id}`)
 			.then((res) => {
 				updatePost(
 					post.filter((post) => {
@@ -73,7 +73,7 @@ const UpdatePosts = ({ post, updatePost }) => {
 			})}
 
 			<EditContainer>
-				<h2>Add a New Post!</h2>
+				<h2>Edit This Post</h2>
 				<EditForm>
 					<form onSubmit={saveEdits}>
 						<label>Title: </label>
@@ -87,6 +87,7 @@ const UpdatePosts = ({ post, updatePost }) => {
 							placeholder="Title goes here"
 							value={editPost.title}
 						/>
+						<br />
 						<label>Story: </label>
 						<input
 							className="story-input"
@@ -98,6 +99,7 @@ const UpdatePosts = ({ post, updatePost }) => {
 								setPostEdit({ ...editPost, story: e.target.value })
 							}
 						/>
+						<br />
 						<label>Image: </label>
 						<input
 							className="image-input"
@@ -110,7 +112,7 @@ const UpdatePosts = ({ post, updatePost }) => {
 							}
 						/>
 						<br />
-						<button onClick={() => setEditing(false)}>Add Your Post</button>
+						<button onClick={() => setEditing(false)}>Submit!</button>
 					</form>
 				</EditForm>
 			</EditContainer>

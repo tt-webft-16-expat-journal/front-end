@@ -31,6 +31,7 @@ const Home = () => {
 	const posts = useSelector((state) => state.postReducer.posts);
 	const dispatch = useDispatch();
 	const [post, setPost] = useState(initialState);
+	const [newPost, setNewPost] = useState(initialState);
 
 	const addPost = (e) => {
 		e.preventDefault();
@@ -45,21 +46,21 @@ const Home = () => {
 		console.log(post);
 	};
 
-	// const handleChanges = (e) => {
-	// 	setNewPost({
-	// 		title: e.target.value,
-	// 		story: e.target.value,
-	// 		image_URL: e.target.value,
-	// 		id: Date.now(),
-	// 	});
-	// };
+	const handleChanges = (e) => {
+		setNewPost({
+			title: e.target.value,
+			story: e.target.value,
+			image_URL: e.target.value,
+			id: Date.now(),
+		});
+	};
 
-	// const updatePosts = (e) => {
-	// 	e.preventDefault();
-	// 	dispatch(addPost(newPost));
-	// 	post.push(posts);
-	// 	console.log(post);
-	// };
+	const updatePosts = (e) => {
+		e.preventDefault();
+		dispatch(addPost(newPost));
+		post.push(posts);
+		console.log(post);
+	};
 
 	return (
 		<div>
@@ -67,17 +68,20 @@ const Home = () => {
 				{post.map((item) => {
 					return (
 						<div>
-							<UpdatePosts post={post} updatePost={setPost} />
 							<PostCards
 								key={item.id}
 								title={item.title}
 								story={item.story}
 								image_URL={item.image_URL}
 							/>
+							<UpdatePosts post={post} updatePost={setPost} />
 						</div>
 					);
 				})}
 			</CardGrid>
+			<div>
+				<button>Add a New Post</button>
+			</div>
 		</div>
 	);
 };
