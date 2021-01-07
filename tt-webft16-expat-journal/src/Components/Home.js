@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PostCards from "./postCards";
 import UpdatePosts from "./updatePosts";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../Actions/postActions";
 import { axiosWithAuth } from "../Utils/axiosWithAuth";
@@ -20,7 +21,7 @@ const CardGrid = styled.div`
 
 const initialState = [
 	{
-		id: 1,
+		id: 0,
 		title: "Post Title 1",
 		story: "Story text goes here.",
 		image_URL: img,
@@ -67,14 +68,13 @@ const Home = () => {
 			<CardGrid>
 				{post.map((item) => {
 					return (
-						<div>
+						<div key={uuidv4()}>
 							<PostCards
-								key={item.id}
 								title={item.title}
 								story={item.story}
 								image_URL={item.image_URL}
 							/>
-							<UpdatePosts post={post} updatePost={setPost} />
+							<UpdatePosts key={uuidv4()} post={post} updatePost={setPost} />
 						</div>
 					);
 				})}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../Utils/axiosWithAuth";
+import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 
 //Styles
@@ -65,7 +66,7 @@ const UpdatePosts = ({ post, updatePost }) => {
 		<div>
 			{post.map((item) => {
 				return (
-					<div key={item.id}>
+					<div key={uuidv4()}>
 						<button onClick={() => editPosts(item)}>Edit</button>
 						<button onClick={() => deletePost(item)}>Delete</button>
 					</div>
@@ -75,45 +76,47 @@ const UpdatePosts = ({ post, updatePost }) => {
 			<EditContainer>
 				<h2>Edit This Post</h2>
 				<EditForm>
-					<form onSubmit={saveEdits}>
-						<label>Title: </label>
-						<input
-							onChange={(e) =>
-								setPostEdit({ ...editPost, title: e.target.value })
-							}
-							className="title-input"
-							type="text"
-							name="newPostTitle"
-							placeholder="Title goes here"
-							value={editPost.title}
-						/>
-						<br />
-						<label>Story: </label>
-						<input
-							className="story-input"
-							type="text"
-							name="newPostStory"
-							placeholder="Story text goes here"
-							value={editPost.story}
-							onChange={(e) =>
-								setPostEdit({ ...editPost, story: e.target.value })
-							}
-						/>
-						<br />
-						<label>Image: </label>
-						<input
-							className="image-input"
-							type="text"
-							name="newPostImage"
-							placeholder="Image URL goes here"
-							value={editPost.PostImage}
-							onChange={(e) =>
-								setPostEdit({ ...editPost, image_URL: e.target.value })
-							}
-						/>
-						<br />
-						<button onClick={() => setEditing(false)}>Submit!</button>
-					</form>
+					{editing && (
+						<form onSubmit={saveEdits}>
+							<label>Title: </label>
+							<input
+								onChange={(e) =>
+									setPostEdit({ ...editPost, title: e.target.value })
+								}
+								className="title-input"
+								type="text"
+								name="newPostTitle"
+								placeholder="Title goes here"
+								value={editPost.title}
+							/>
+							<br />
+							<label>Story: </label>
+							<input
+								className="story-input"
+								type="text"
+								name="newPostStory"
+								placeholder="Story text goes here"
+								value={editPost.story}
+								onChange={(e) =>
+									setPostEdit({ ...editPost, story: e.target.value })
+								}
+							/>
+							<br />
+							<label>Image: </label>
+							<input
+								className="image-input"
+								type="text"
+								name="newPostImage"
+								placeholder="Image URL goes here"
+								value={editPost.PostImage}
+								onChange={(e) =>
+									setPostEdit({ ...editPost, image_URL: e.target.value })
+								}
+							/>
+							<br />
+							<button onClick={() => setEditing(false)}>Submit!</button>
+						</form>
+					)}
 				</EditForm>
 			</EditContainer>
 		</div>
