@@ -15,11 +15,13 @@ const Posting = styled.div`
 const PostCards = ({ title, story, image_URL }) => {
 	return (
 		<Posting className="postCard">
-			<button>Edit</button>
-			<button>Delete</button>
 			<h2>{title}</h2>
 			<p>{story}</p>
-			{image_URL === "" ? "" : <img src={image_URL} alt="uploaded by user" />}
+			{image_URL === undefined ? (
+				""
+			) : (
+				<img src={image_URL} alt="uploaded by user" />
+			)}
 		</Posting>
 	);
 };
