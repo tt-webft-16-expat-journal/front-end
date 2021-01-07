@@ -64,14 +64,10 @@ const UpdatePosts = ({ post, updatePost }) => {
 
 	return (
 		<div>
-			{post.map((item) => {
-				return (
-					<div key={uuidv4()}>
-						<button onClick={() => editPosts(item)}>Edit</button>
-						<button onClick={() => deletePost(item)}>Delete</button>
-					</div>
-				);
-			})}
+			<div>
+				<button onClick={() => editPosts(post)}>Edit</button>
+				<button onClick={() => deletePost(post)}>Delete</button>
+			</div>
 
 			<EditContainer>
 				<h2>Edit This Post</h2>
@@ -114,7 +110,9 @@ const UpdatePosts = ({ post, updatePost }) => {
 								}
 							/>
 							<br />
-							<button onClick={() => setEditing(false)}>Submit!</button>
+							<button type="button" onClick={() => setEditing(false)}>
+								Submit!
+							</button>
 						</form>
 					)}
 				</EditForm>

@@ -15,7 +15,10 @@ const Posting = styled.div`
 const PostCards = ({ title, story, image_URL }) => {
 	return (
 		<Posting className="postCard">
-			<h2>{title}</h2>
+			{/* {title.0 === "" ? 
+			<h2>{title}</h2> 
+			: <h2>{title.0}</h2>} */}
+
 			<p>{story}</p>
 			{image_URL === undefined ? (
 				""
