@@ -6,6 +6,7 @@ const initialState = {
 		story: "Ipsum Lorem. On repeat.",
 		image_url: "",
 		user_id: "",
+		id: 0,
 	},
 };
 
@@ -14,16 +15,12 @@ export function postReducer(state = initialState, action) {
 		case ADD_POST:
 			return {
 				...state,
-				posts: {
-					body: action.payload,
-				},
+				posts: action.payload,
 			};
 		case UPDATE_POST:
 			return {
 				...state,
-				posts: {
-					body: action.payload,
-				},
+				posts: action.payload,
 			};
 		default:
 			return state;

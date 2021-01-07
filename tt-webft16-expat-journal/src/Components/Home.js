@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import PostCards from "./postCards";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePost } from "../Actions/postActions";
+import { addPost } from "../Actions/postActions";
 import { axiosWithAuth } from "../Utils/axiosWithAuth";
-
+import img from "../Assets/lady1.jpg";
 //Styles
 
 const CardGrid = styled.div`
@@ -19,9 +19,9 @@ const CardGrid = styled.div`
 const dummyData = [
 	{
 		id: 1,
-		title: "",
-		story: "",
-		image_URL: "../Assets/lady1.jpg",
+		title: "Post Title 1",
+		story: "Story text goes here.",
+		image_URL: img,
 	},
 ];
 
@@ -34,10 +34,20 @@ const initialState = {
 
 const Home = () => {
 	const posts = useSelector((state) => state.postReducer.posts);
-	console.log(posts);
 	const dispatch = useDispatch();
 	const [post, setPost] = useState([]);
 	const [newPost, setNewPost] = useState(initialState);
+
+	useEffect(() => {
+		axiosWithAuth()
+			.get("api/posts")
+			.then((res) => {
+				setPost(res.data);
+			})
+			.catch((err) => {
+				console.log("error --> ", err);
+			});
+	}, []);
 
 	useEffect(() => {
 		setPost(dummyData);
@@ -54,24 +64,13 @@ const Home = () => {
 
 	const updatePosts = (e) => {
 		e.preventDefault();
-		dispatch(updatePost(newPost));
+		dispatch(addPost(newPost));
+		post.push(posts);
+		console.log(post);
 	};
-	useEffect(() => {
-		axiosWithAuth()
-			.get("api/posts")
-			.then((res) => {
-				setPost(res.data);
-			})
-			.catch((err) => {
-				console.log("error --> ", err);
-			});
-	}, []);
 
 	return (
 		<div>
-			<p>{posts.title}</p>
-			<p>{posts.story}</p>
-			<p>{posts.id}</p>
 			<CardGrid>
 				{post.map((post) => {
 					return (
@@ -115,7 +114,7 @@ const Home = () => {
 					onChange={handleChanges}
 				/>
 				<br />
-				<button type="submit">Update Post</button>
+				<button type="submit">Add A New Post</button>
 			</form>
 		</div>
 	);
