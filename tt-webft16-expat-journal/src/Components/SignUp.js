@@ -73,18 +73,6 @@ const SignUp = (props) => {
 		axiosWithAuth()
 			.post("api/auth/register", formState)
 			.then((res) => {
-				console.log(res);
-				if (res.statusText === "Created") {
-					console.log("New account is created successfully.");
-					const successMsg = props.btn
-						? "Account is updated successfully."
-						: "New account is created successfully.";
-					setFormState(INITIAL_FORM_STATE);
-					setResponseMsg({
-						success: true,
-						msg: successMsg,
-					});
-				}
 				window.location = "/login";
 			})
 			.catch((err) => {

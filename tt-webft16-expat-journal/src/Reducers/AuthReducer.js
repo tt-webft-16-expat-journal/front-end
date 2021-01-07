@@ -1,7 +1,4 @@
 import {
-	REGISTRATION_START,
-	REGISTRATION_SUCCESS,
-	REGISTRATION_FAILURE,
 	USER_LOGIN_START,
 	USER_LOGIN_SUCCESS,
 	USER_LOGIN_FAILURE,
@@ -20,20 +17,10 @@ const initialState = {
 
 export const authReducer = (state = initialState, { type, payload }) => {
 	switch (type) {
-		case REGISTRATION_START:
 		case USER_LOGIN_START:
 			return {
 				...state,
 				isFetching: true,
-			};
-		case REGISTRATION_SUCCESS:
-			return {
-				user: {
-					...state.user,
-					...payload,
-					isLoggedIn: true,
-				},
-				isFetching: false,
 			};
 		case USER_LOGIN_SUCCESS:
 			return {
@@ -46,7 +33,6 @@ export const authReducer = (state = initialState, { type, payload }) => {
 				},
 				isFetching: false,
 			};
-		case REGISTRATION_FAILURE:
 		case USER_LOGIN_FAILURE:
 			return {
 				...state,
