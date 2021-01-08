@@ -74,7 +74,7 @@ const EditPosts = ({ post, setPost }) => {
 			.delete(`api/posts/:${id}`)
 			.then((res) => {
 				console.log();
-				updatePost(
+				setPost(
 					post.filter((deletedPost) => {
 						return post.id !== res.data;
 					})
