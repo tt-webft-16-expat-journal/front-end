@@ -6,7 +6,7 @@ const Dashboard = ({ post, setPost }) => {
 		<div>
 			<h2>Your Dashboard</h2>
 			<AddPost post={post} />
-			<EditPosts post={post} updatePost={setPost} />
+			<EditPosts post={post} setPost={setPost} />
 		</div>
 	);
 };

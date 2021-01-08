@@ -47,7 +47,7 @@ const initialState = {
 
 //Start of Component Functionality
 
-const EditPosts = ({ post, updatePost }) => {
+const EditPosts = ({ post, setPost }) => {
 	const [editing, setEditing] = useState(false);
 	const [editPost, setPostEdit] = useState(initialState);
 	const id = `${editPost.id}`;
@@ -62,7 +62,7 @@ const EditPosts = ({ post, updatePost }) => {
 		axiosWithAuth()
 			.put(`api/posts/:${id}`, editPost)
 			.then((res) => {
-				updatePost(
+				setPost(
 					post.map((item) => (item.id === res.data.id ? res.data : item))
 				);
 			})
