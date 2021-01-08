@@ -48,7 +48,6 @@ const initialState = {
 //Start of Component Functionality
 
 const EditPosts = ({ post, updatePost }) => {
-	console.log(post);
 	const [editing, setEditing] = useState(false);
 	const [editPost, setPostEdit] = useState(initialState);
 	const id = `${editPost.id}`;
