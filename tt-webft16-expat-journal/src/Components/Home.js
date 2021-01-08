@@ -63,8 +63,8 @@ const Home = () => {
 
 	return (
 		<div>
+			<h2>Travelling Memories</h2>
 			<CardGrid>
-				<h2>Travelling Memories</h2>
 				<PostCard>
 					{post.map((item) => {
 						return (
