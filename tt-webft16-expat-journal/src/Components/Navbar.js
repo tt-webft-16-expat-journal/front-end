@@ -11,6 +11,12 @@ const NavBar = styled.div`
 	padding: 2%;
 `;
 
+const LogOut = styled.button`
+	padding: 0;
+	margin: 0;
+	border: none;
+`;
+
 const Nav = () => {
 	const logOut = () => {
 		window.localStorage.removeItem("token");
@@ -30,9 +36,9 @@ const Nav = () => {
 					<NavLink className="main-nav" activeClassName="active" to="/home">
 						Home
 					</NavLink>
-					<button className="main-nav" onClick={logOut}>
+					<LogOut className="main-nav" onClick={logOut}>
 						Sign Out
-					</button>
+					</LogOut>
 				</nav>
 			</header>
 		</NavBar>

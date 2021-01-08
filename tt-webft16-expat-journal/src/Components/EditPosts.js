@@ -1,24 +1,41 @@
 import React, { useState } from "react";
-import { axiosWithAuth } from "../Utils/axiosWithAuth";
 import { v4 as uuidv4 } from "uuid";
+import { axiosWithAuth } from "../Utils/axiosWithAuth";
 import styled from "styled-components";
 
 //Styles
+const DeletleButton = styled.span`
+	text-align: center;
+`;
+
+const DeleteWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+`;
+
+const EditForm = styled.span`
+	justify-content: center;
+	align-item: center;
+	margin: 1% 4%;
+	padding: 1%;
+`;
+
 const EditContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-item: center;
-	border: 2px black solid;
-	margin: 1% 4%;
-	padding: 4%;
-`;
-
-const EditForm = styled.div`
-	display: flex;
-	flex-direction: row;
 	justify-content: space-around;
 `;
+
+const LiEditor = styled.li`
+	display: flex;
+	flex-direction: column;
+	margin: 2%;
+	list-style: none;
+`;
+
+//Misc computation tasks
 
 const initialState = {
 	PostTitle: "",
@@ -28,18 +45,21 @@ const initialState = {
 	editing: false,
 };
 
-const UpdatePosts = ({ post, updatePost }) => {
+//Start of Component Functionality
+
+const EditPosts = ({ post, updatePost }) => {
+	console.log(post);
 	const [editing, setEditing] = useState(false);
 	const [editPost, setPostEdit] = useState(initialState);
 	const id = `${editPost.id}`;
 
-	const editPosts = (post) => {
+	const editPosts = (postedItem) => {
 		setEditing(true);
-		setPostEdit(post);
+		setPostEdit(postedItem);
 	};
 
-	const saveEdits = (e) => {
-		e.preventDefault();
+	const saveEdits = (event) => {
+		event.preventDefault();
 		axiosWithAuth()
 			.put(`api/posts/:${id}`, editPost)
 			.then((res) => {
@@ -50,15 +70,20 @@ const UpdatePosts = ({ post, updatePost }) => {
 			.catch((err) => console.log(err));
 	};
 
-	const deletePost = (post) => {
+	const deletePost = (deletedPost) => {
 		axiosWithAuth()
 			.delete(`api/posts/:${id}`)
 			.then((res) => {
+				console.log();
 				updatePost(
-					post.filter((post) => {
+					post.filter((deletedPost) => {
 						return post.id !== res.data;
 					})
 				);
+				window.location = "/home";
+			})
+			.catch((err) => {
+				console.log("ERROR: ", err);
 			});
 	};
 
@@ -66,11 +91,10 @@ const UpdatePosts = ({ post, updatePost }) => {
 		<div>
 			<div>
 				<button onClick={() => editPosts(post)}>Edit</button>
-				<button onClick={() => deletePost(post)}>Delete</button>
 			</div>
 
 			<EditContainer>
-				<h2>Edit This Post</h2>
+				<h2>Edit Your Posts</h2>
 				<EditForm>
 					{editing && (
 						<form onSubmit={saveEdits}>
@@ -111,14 +135,33 @@ const UpdatePosts = ({ post, updatePost }) => {
 							/>
 							<br />
 							<button type="button" onClick={() => setEditing(false)}>
-								Submit!
+								Finish Edits
 							</button>
 						</form>
 					)}
 				</EditForm>
+				<DeleteWrapper>
+					{/* Delete capability follows  */}
+					{post.map((postedItem) => {
+						return (
+							<LiEditor key={uuidv4()} onClick={() => editPosts(postedItem)}>
+								<h3>{postedItem.title}</h3>
+								<DeletleButton
+									className="delete"
+									onClick={(e) => {
+										e.stopPropagation();
+										deletePost(postedItem);
+									}}
+								>
+									Delete Post
+								</DeletleButton>
+							</LiEditor>
+						);
+					})}
+				</DeleteWrapper>
 			</EditContainer>
 		</div>
 	);
 };
 
-export default UpdatePosts;
+export default EditPosts;

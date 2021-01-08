@@ -1,10 +1,15 @@
 import React from "react";
+import styled from "styled-components";
+
+const FooterWrapper = styled.div`
+	margin: 5%;
+`;
 
 const Footer = () => {
 	return (
-		<div>
-			<h3>This is a dummy footer.</h3>
-		</div>
+		<FooterWrapper>
+			<p>This is a footer.</p>
+		</FooterWrapper>
 	);
 };
 

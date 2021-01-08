@@ -4,7 +4,7 @@ import SignUp from "./Components/SignUp";
 import LoginForm from "./Components/Login";
 import Home from "./Components/Home";
 import Footer from "./Components/Footer";
-// import PrivateRoute from "./Components/PrivateRoute";
+import PrivateRoute from "./Components/PrivateRoute";
 import "./App.css";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
 			<Nav />
 			<Route path="/signup" component={SignUp} />
 			<Route path="/login" component={LoginForm} />
-			<Route path="/home" component={Home} />
+			<PrivateRoute path="/home" component={Home} />
 			<Footer />
 		</div>
 	);

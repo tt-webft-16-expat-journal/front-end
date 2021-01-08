@@ -28,7 +28,7 @@ const LoginForm = (props) => {
 		axiosWithAuth()
 			.post("api/auth/login", newLogin)
 			.then((res) => {
-				console.log(res.data);
+				// console.log(res.data);
 				setLogin([...login, newLogin]);
 				setFormValues(initialFormValues);
 				dispatch({
